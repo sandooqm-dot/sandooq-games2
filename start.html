@@ -3,141 +3,276 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>تشغيل اللعبة</title>
+  <title>خطوات تشغيل اللعبة</title>
   <style>
     :root{
-      --bg:#1f4fa3;
+      --blue:#2b5aa7;
       --yellow:#f4c400;
-      --card:#ffffff;
-      --text:#111;
+      --white:#ffffff;
+      --text:#0f0f0f;
+      --shadow: 0 14px 26px rgba(0,0,0,.18);
+      --radius:18px;
     }
+
+    *{box-sizing:border-box}
     body{
       margin:0;
       font-family: Arial, sans-serif;
-      background: var(--bg);
+      background: var(--blue);
       color:#fff;
-      min-height:100vh;
-      padding:18px;
-      box-sizing:border-box;
     }
-    .wrap{width:min(560px, 100%); margin:0 auto;}
-    .top{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px; margin-bottom:14px;
+
+    /* Top white bar */
+    .topbar{
+      background: #fff;
+      border-bottom: 4px solid var(--yellow);
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .brand{display:flex; align-items:center; gap:10px;}
-    .logo{width:48px;height:48px;object-fit:contain;}
-    .title{margin:0;color:var(--yellow);font-weight:900;font-size:22px;}
-    .codeBox{font-size:13px;opacity:.95}
-    .codePill{
-      display:inline-block;
-      background: rgba(255,255,255,.16);
-      padding:6px 10px;
-      border-radius:999px;
-      margin-right:6px;
+    .topbar img{
+      height:44px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .wrap{
+      width:min(720px, 92vw);
+      margin: 0 auto;
+      padding: 26px 0 26px;
+      text-align:center;
+    }
+
+    .title{
+      margin: 10px 0 6px;
       font-weight:900;
-    }
-    .card{
-      background: var(--card);
-      color: var(--text);
-      border-radius:18px;
-      padding:18px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.22);
+      font-size: 44px;
+      letter-spacing: .3px;
     }
     .subtitle{
-      margin:0 0 14px 0;
-      font-size:14px;
-      line-height:1.8;
+      margin:0 0 22px;
+      font-weight:800;
+      font-size: 22px;
       opacity:.95;
     }
-    .btn{
-      width:100%;
-      padding:14px 12px;
-      border-radius:14px;
-      border:0;
-      font-weight:900;
-      font-size:16px;
-      cursor:pointer;
-      margin-bottom:10px;
+
+    /* Steps */
+    .steps{
+      width: min(640px, 100%);
+      margin: 0 auto;
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+      align-items:stretch;
     }
-    .btnPrimary{background: var(--yellow); color:#111;}
-    .btnLight{background:#ffffff; color:#111; border:2px solid #eee;}
-    .btnLink{
-      background: rgba(255,255,255,.12);
+
+    .step{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    .badge{
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: var(--yellow);
       color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      font-size: 26px;
+      flex: 0 0 auto;
+      box-shadow: 0 8px 16px rgba(0,0,0,.18);
+    }
+
+    .card{
+      flex: 1 1 auto;
+      background: var(--white);
+      color: var(--text);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 16px;
+      text-align:right;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      min-height: 72px;
+    }
+
+    .card .txt{
+      font-weight:900;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .icons{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      flex: 0 0 auto;
+    }
+
+    .iconBtn{
+      width: 62px;
+      height: 62px;
+      border-radius: 14px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border: 2px solid #f1f1f1;
+      box-shadow: 0 10px 18px rgba(0,0,0,.10);
       text-decoration:none;
-      display:block;
-      text-align:center;
-      box-sizing:border-box;
+    }
+    .iconBtn svg{width:42px;height:42px;display:block}
+
+    /* Start button */
+    .startWrap{
+      width:min(640px, 100%);
+      margin: 22px auto 0;
+      display:flex;
+      justify-content:center;
+    }
+    .startBtn{
       border:0;
+      background: var(--yellow);
+      color:#111;
+      font-weight:900;
+      font-size: 28px;
+      padding: 16px 38px;
+      border-radius: 999px;
+      cursor:pointer;
+      box-shadow: 0 14px 26px rgba(0,0,0,.22);
+      min-width: 260px;
     }
-    .small{
-      margin-top:10px;
-      font-size:12px;
-      opacity:.9;
-      line-height:1.8;
-      text-align:center;
+
+    /* Footer */
+    .footer{
+      margin-top: 22px;
+      padding: 14px 0 0;
+      border-top: 4px solid var(--yellow);
+      background: transparent;
+      font-size: 14px;
+      opacity:.95;
     }
-    .row{
-      display:grid;
-      gap:10px;
-      margin-top:12px;
+
+    /* Responsive */
+    @media (max-width: 420px){
+      .title{font-size: 36px;}
+      .subtitle{font-size: 18px;}
+      .card .txt{font-size: 18px;}
+      .iconBtn{width:56px;height:56px}
+      .badge{width:56px;height:56px;font-size:24px}
+      .startBtn{font-size:24px; padding:14px 28px;}
     }
   </style>
 </head>
 <body>
+
+  <!-- Top white bar with logo -->
+  <div class="topbar">
+    <img src="logo.png" alt="logo">
+  </div>
+
   <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <img class="logo" src="logo.png" alt="logo" />
-        <h1 class="title">تشغيل اللعبة</h1>
+    <div class="title">خطوات تشغيل اللعبة</div>
+    <div class="subtitle">بخطوات سهلة وبسيطة</div>
+
+    <div class="steps">
+
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="badge">1</div>
+        <div class="card">
+          <div class="txt">حمل برنامج بوربوينت من متجر جهازك</div>
+          <div class="icons">
+            <!-- Google Play -->
+            <a class="iconBtn" href="https://play.google.com/store/apps/details?id=com.microsoft.office.powerpoint" target="_blank" rel="noopener" aria-label="Google Play">
+              <!-- Play icon (simple) -->
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <path d="M12 10c-1.7 1.2-2 3.1-2 5.4v33.2c0 2.3.3 4.2 2 5.4l24.7-21.7L12 10z" fill="#34A853"/>
+                <path d="M36.7 32.3 44 25.9l-9.6-5.5L24.2 11 36.7 32.3z" fill="#EA4335"/>
+                <path d="M36.7 31.7 24.2 53l10.2-9.4 9.6-5.5-7.3-6.4z" fill="#FBBC05"/>
+                <path d="M44.2 25.8c2.3 1.3 4 2.3 6 3.4 2.2 1.2 2.2 4.4 0 5.6-2 1.1-3.7 2.1-6 3.4l-7.4-6.5 7.4-5.9z" fill="#4285F4"/>
+              </svg>
+            </a>
+
+            <!-- App Store -->
+            <a class="iconBtn" href="https://apps.apple.com/app/microsoft-powerpoint/id586449534" target="_blank" rel="noopener" aria-label="App Store">
+              <!-- App Store-like icon (simple) -->
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <rect x="8" y="8" width="48" height="48" rx="12" fill="#0A84FF"/>
+                <path d="M28 18h4l14 28h-4L28 18zm-6 28h-4l10-20 2 4-8 16zm26 0h-4l-6-12 2-4 8 16z" fill="#fff"/>
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="codeBox">
-        <span class="codePill" id="codePill">—</span>
-        كودك
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="badge">2</div>
+        <div class="card">
+          <div class="txt">انشئ حساب في البرنامج</div>
+          <div class="icons">
+            <!-- user+ icon -->
+            <div class="iconBtn" aria-hidden="true">
+              <svg viewBox="0 0 64 64">
+                <circle cx="26" cy="26" r="10" fill="#111"/>
+                <path d="M10 54c2.5-10 10-16 20-16s17.5 6 20 16" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+                <path d="M46 24v-6m0 6h6m-6 0h-6" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="badge">3</div>
+        <div class="card">
+          <div class="txt">انقر على ابدأ اللعبة لنقلك<br>الى برنامج البوربوينت وتشغيل اللعبة</div>
+          <div class="icons"></div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card">
-      <p class="subtitle">
-        1) حمّل تطبيق PowerPoint (إذا ما عندك) <br>
-        2) حمّل اللعبة وافتحها من الملفات داخل PowerPoint ✅
-      </p>
+    <div class="startWrap">
+      <button class="startBtn" id="startBtn">ابدأ اللعبة</button>
+    </div>
 
-      <a class="btn btnLink" href="https://apps.apple.com/app/microsoft-powerpoint/id586449534" target="_blank" rel="noopener">
-        تحميل PowerPoint (آيفون / آيباد)
-      </a>
-
-      <a class="btn btnLink" href="https://play.google.com/store/apps/details?id=com.microsoft.office.powerpoint" target="_blank" rel="noopener">
-        تحميل PowerPoint (أندرويد)
-      </a>
-
-      <a class="btn btnPrimary" href="game.pptx" download>
-        تحميل اللعبة الآن (PPTX)
-      </a>
-
-      <button class="btn btnLight" id="resetBtn">تغيير الكود / خروج</button>
-
-      <div class="small">
-        بعد التحميل: افتح تطبيق <b>الملفات Files</b> → Downloads → اضغط الملف → اختر <b>PowerPoint</b>.
-      </div>
+    <div class="footer">
+      جميع الحقوق محفوظة لمتجر صندوق المسابقات
     </div>
   </div>
 
 <script>
-  // لازم يكون فيه كود محفوظ من صفحة التفعيل
+  // Gate: لازم يجي من صفحة الكود
   const code = (localStorage.getItem('ppt_game_code') || '').trim();
   if(!code || code.length < 4){
     window.location.href = 'index.html';
-  } else {
-    document.getElementById('codePill').textContent = code;
   }
 
-  // خروج / تغيير الكود
-  document.getElementById('resetBtn').addEventListener('click', ()=>{
-    localStorage.removeItem('ppt_game_code');
-    window.location.href = 'index.html';
+  // Start: حاول فتحها داخل PowerPoint مباشرة
+  document.getElementById('startBtn').addEventListener('click', ()=>{
+    const fileUrl = new URL('game.pptx', window.location.href).href;
+
+    // محاولة فتح داخل PowerPoint
+    const deepLink = 'ms-powerpoint:ofv|u|' + fileUrl;
+    window.location.href = deepLink;
+
+    // خطة بديلة صامتة: لو ما فتح التطبيق، يبدأ تحميل الملف بعد لحظة
+    setTimeout(()=>{
+      window.location.href = fileUrl;
+    }, 1200);
   });
 </script>
+
 </body>
 </html>
