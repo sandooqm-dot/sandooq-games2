@@ -20,13 +20,13 @@
       padding:18px;
       box-sizing:border-box;
     }
-    .wrap{width:min(760px, 100%); margin:0 auto;}
+    .wrap{width:min(560px, 100%); margin:0 auto;}
     .top{
       display:flex; align-items:center; justify-content:space-between;
       gap:10px; margin-bottom:14px;
     }
     .brand{display:flex; align-items:center; gap:10px;}
-    .logo{width:46px;height:46px;object-fit:contain;}
+    .logo{width:48px;height:48px;object-fit:contain;}
     .title{margin:0;color:var(--yellow);font-weight:900;font-size:22px;}
     .codeBox{font-size:13px;opacity:.95}
     .codePill{
@@ -44,59 +44,45 @@
       padding:18px;
       box-shadow: 0 10px 22px rgba(0,0,0,.22);
     }
-    h2{margin:0 0 10px 0; font-size:18px;}
-    ol{margin:0; padding-right:18px; line-height:1.9;}
-    .btnRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;}
+    .subtitle{
+      margin:0 0 14px 0;
+      font-size:14px;
+      line-height:1.8;
+      opacity:.95;
+    }
     .btn{
-      flex:1;
-      min-width: 180px;
+      width:100%;
       padding:14px 12px;
-      border-radius:12px;
+      border-radius:14px;
       border:0;
       font-weight:900;
-      font-size:15px;
+      font-size:16px;
       cursor:pointer;
+      margin-bottom:10px;
     }
     .btnPrimary{background: var(--yellow); color:#111;}
-    .btnGhost{
-      background:#fff;
-      color:#111;
-      border: 2px solid #e7e7e7;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      box-sizing:border-box;
-    }
-    .note{
-      margin-top:12px;
-      font-size:13px;
-      opacity:.9;
-      line-height:1.8;
-    }
-    .links{
-      margin-top:14px;
-      display:grid;
-      gap:10px;
-    }
-    .a{
-      display:block;
+    .btnLight{background:#ffffff; color:#111; border:2px solid #eee;}
+    .btnLink{
       background: rgba(255,255,255,.12);
-      padding:12px 12px;
-      border-radius:12px;
       color:#fff;
       text-decoration:none;
-      line-height:1.7;
+      display:block;
+      text-align:center;
+      box-sizing:border-box;
+      border:0;
     }
-    .danger{
-      margin-top:14px;
-      background: rgba(255,255,255,.12);
-      padding:12px 12px;
-      border-radius:12px;
+    .small{
+      margin-top:10px;
+      font-size:12px;
+      opacity:.9;
       line-height:1.8;
-      font-size:13px;
+      text-align:center;
     }
-    .small{font-size:12px; opacity:.9; margin-top:10px;}
+    .row{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
   </style>
 </head>
 <body>
@@ -113,43 +99,33 @@
     </div>
 
     <div class="card">
-      <h2>طريقة التشغيل</h2>
-      <ol>
-        <li>ثبّت تطبيق <b>Microsoft PowerPoint</b> على جهازك.</li>
-        <li>افتح التطبيق وسجّل دخولك بحساب Microsoft (مجاني).</li>
-        <li>اضغط زر <b>تحميل اللعبة</b> ثم افتح الملف من تطبيق الملفات (Files) باستخدام PowerPoint.</li>
-        <li>داخل PowerPoint اختر وضع العرض/Slide Show لبدء اللعب.</li>
-      </ol>
+      <p class="subtitle">
+        1) حمّل تطبيق PowerPoint (إذا ما عندك) <br>
+        2) حمّل اللعبة وافتحها من الملفات داخل PowerPoint ✅
+      </p>
 
-      <div class="btnRow">
-        <button class="btn btnPrimary" id="openBtn">فتح اللعبة في PowerPoint</button>
-        <a class="btn btnGhost" id="downloadBtn" href="game.pptx" download>تحميل اللعبة (PPTX)</a>
+      <a class="btn btnLink" href="https://apps.apple.com/app/microsoft-powerpoint/id586449534" target="_blank" rel="noopener">
+        تحميل PowerPoint (آيفون / آيباد)
+      </a>
+
+      <a class="btn btnLink" href="https://play.google.com/store/apps/details?id=com.microsoft.office.powerpoint" target="_blank" rel="noopener">
+        تحميل PowerPoint (أندرويد)
+      </a>
+
+      <a class="btn btnPrimary" href="game.pptx" download>
+        تحميل اللعبة الآن (PPTX)
+      </a>
+
+      <button class="btn btnLight" id="resetBtn">تغيير الكود / خروج</button>
+
+      <div class="small">
+        بعد التحميل: افتح تطبيق <b>الملفات Files</b> → Downloads → اضغط الملف → اختر <b>PowerPoint</b>.
       </div>
-
-      <div class="note">
-        إذا زر “فتح اللعبة” ما اشتغل عندك، استخدم “تحميل اللعبة” ثم افتحها يدويًا من الملفات.
-      </div>
-
-      <div class="links">
-        <a class="a" href="https://apps.apple.com/app/microsoft-powerpoint/id586449534" target="_blank" rel="noopener">
-          تحميل PowerPoint للآيفون والآيباد (App Store)
-        </a>
-        <a class="a" href="https://play.google.com/store/apps/details?id=com.microsoft.office.powerpoint" target="_blank" rel="noopener">
-          تحميل PowerPoint للأندرويد (Google Play)
-        </a>
-        <a class="a" href="#" id="reset">تغيير الكود / إعادة التفعيل</a>
-      </div>
-
-      <div class="danger">
-        ملاحظة: بعض الأجهزة تمنع فتح الملف مباشرة عبر الزر، لذلك وضعنا زر تحميل كخيار مضمون.
-      </div>
-
-      <div class="small" id="fileInfo"></div>
     </div>
   </div>
 
 <script>
-  // تحقق أن المستخدم فعّل
+  // لازم يكون فيه كود محفوظ من صفحة التفعيل
   const code = (localStorage.getItem('ppt_game_code') || '').trim();
   if(!code || code.length < 4){
     window.location.href = 'index.html';
@@ -157,21 +133,10 @@
     document.getElementById('codePill').textContent = code;
   }
 
-  // رابط ملف اللعبة (في نفس المجلد باسم game.pptx)
-  const fileUrl = new URL('game.pptx', window.location.href).href;
-  document.getElementById('fileInfo').textContent = 'رابط الملف: ' + fileUrl;
-
-  // زر إعادة التفعيل
-  document.getElementById('reset').addEventListener('click', (e)=>{
-    e.preventDefault();
+  // خروج / تغيير الكود
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
     localStorage.removeItem('ppt_game_code');
     window.location.href = 'index.html';
-  });
-
-  // محاولة فتح PowerPoint عبر Deep Link
-  document.getElementById('openBtn').addEventListener('click', ()=>{
-    const deepLink = 'ms-powerpoint:ofv|u|' + fileUrl;
-    window.location.href = deepLink;
   });
 </script>
 </body>
