@@ -253,24 +253,17 @@
   </div>
 
 <script>
-  // Gate: لازم يجي من صفحة الكود
+  // لازم يجي من صفحة الكود
   const code = (localStorage.getItem('ppt_game_code') || '').trim();
   if(!code || code.length < 4){
     window.location.href = 'index.html';
   }
 
-  // Start: حاول فتحها داخل PowerPoint مباشرة
+  // ✅ رابط OneDrive لتشغيل اللعبة (مخفي داخل زر ابدأ اللعبة)
+  const ONE_DRIVE_LINK = "https://1drv.ms/p/c/3ceb41d5645d69e6/IQBkzXKZDy5oR6Y3CyeO_Kf4ATatStkELR_7fICeGtqwzIk";
+
   document.getElementById('startBtn').addEventListener('click', ()=>{
-    const fileUrl = new URL('game.pptx', window.location.href).href;
-
-    // محاولة فتح داخل PowerPoint
-    const deepLink = 'ms-powerpoint:ofv|u|' + fileUrl;
-    window.location.href = deepLink;
-
-    // خطة بديلة صامتة: لو ما فتح التطبيق، يبدأ تحميل الملف بعد لحظة
-    setTimeout(()=>{
-      window.location.href = fileUrl;
-    }, 1200);
+    window.location.href = ONE_DRIVE_LINK;
   });
 </script>
 
