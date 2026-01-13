@@ -1,243 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>تفعيل كود الشراء</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تفعيل اللعبة</title>
   <style>
-    :root{
-      --bg:#1f4fa3;
-      --yellow:#f4c400;
-      --panel: rgba(255,255,255,.10);
-      --panelBorder: rgba(255,255,255,.14);
-      --text:#fff;
-      --muted: rgba(255,255,255,.75);
-      --inputBg:#fff;
-      --inputText:#111;
-    }
-
-    html,body{
-      height:100%;
-      margin:0;
-      background:var(--bg);
-      overflow:hidden;
-      font-family: Arial, sans-serif;
-    }
-
-    /* ===== شاشة التفعيل ===== */
-    .activate-screen{
-      position:fixed;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:10;
-    }
-    .activate-card{
-      width:min(760px, 92vw);
-      border-radius:18px;
-      background:var(--panel);
-      border:1px solid var(--panelBorder);
-      box-shadow: 0 16px 40px rgba(0,0,0,.25);
-      padding:20px 16px 16px;
-      text-align:center;
-    }
-    .logo{
-      width:86px;
-      height:86px;
-      object-fit:contain;
-      margin:0 auto 10px;
-      display:block;
-    }
-    .title{
-      font-size:24px;
-      font-weight:900;
-      color:var(--text);
-      margin:6px 0 6px;
-    }
-    .subtitle{
-      font-size:14px;
-      color:var(--muted);
-      margin:0 0 14px;
-      line-height:1.7;
-    }
-    .code-input{
-      width:min(560px, 90vw);
-      height:50px;
-      border:0;
-      outline:none;
-      border-radius:10px;
-      background:var(--inputBg);
-      color:var(--inputText);
-      padding:0 14px;
-      font-size:16px; /* مهم عشان iOS ما يسوي Zoom */
-      direction:ltr;
-      text-align:right;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
-    }
-    .btn{
-      width:min(560px, 90vw);
-      height:50px;
-      border:0;
-      border-radius:10px;
-      background:var(--yellow);
-      color:#111;
-      font-weight:900;
-      font-size:16px;
-      cursor:pointer;
-      margin-top:10px;
-    }
-    .error{
-      display:none;
-      margin-top:10px;
-      color:#ffe0e0;
-      font-size:13px;
-    }
-
-    /* ===== شاشة الصورة (نفس اللي عندك) ===== */
-    .steps-screen{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background:var(--bg);
-      z-index:1;
-    }
-
-    .page{
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .stage{
-      position:relative;
-      display:inline-block;
-      max-width:100vw;
-      max-height:100vh;
-    }
-    .stage img{
-      display:block;
-      max-width:100vw;
-      max-height:100vh;
-      width:auto;
-      height:auto;
-      user-select:none;
-      -webkit-user-drag:none;
-    }
-
-    /* مناطق الضغط الشفافة */
-    .hotspot{
-      position:absolute;
-      display:block;
-      background:rgba(0,0,0,0);
-      border-radius:14px;
-      cursor:pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
+    :root{--bg:#1f4fa3;--yellow:#f4c400;--card:#fff;--text:#111;}
+    body{margin:0;background:var(--bg);font-family:Arial,sans-serif;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;box-sizing:border-box}
+    .wrap{width:min(520px,100%)}
+    header{position:relative;padding:10px 0 16px;text-align:center}
+    .logo{position:absolute;left:0;top:0;width:60px;height:60px;object-fit:contain}
+    h1{margin:0;color:var(--yellow);font-weight:900;font-size:28px}
+    .card{background:var(--card);color:var(--text);border-radius:18px;padding:18px;box-shadow:0 10px 22px rgba(0,0,0,.22);text-align:right}
+    label{display:block;font-weight:800;margin-bottom:10px}
+    input{width:100%;box-sizing:border-box;padding:14px 12px;border-radius:12px;border:1px solid #d7d7d7;outline:none;font-size:16px}
+    input:focus{border-color:#1f4fa3}
+    .btn{width:100%;margin-top:12px;padding:14px 12px;border-radius:12px;border:0;background:var(--yellow);color:#111;font-weight:900;font-size:16px;cursor:pointer}
+    .msg{margin-top:10px;font-size:14px;text-align:center;color:#b00020;display:none;font-weight:800}
+    .ok{color:#0b7a2a}
+    .hint{margin-top:10px;font-size:12px;color:#444;text-align:center}
   </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <header>
+      <img class="logo" src="logo.png" alt="logo">
+      <h1>تفعيل اللعبة</h1>
+    </header>
 
-  <!-- ✅ 1) صفحة إدخال الكود -->
-  <div class="activate-screen" id="activateScreen">
-    <div class="activate-card">
-      <!-- إذا عندك شعار في المستودع باسم logo.png بيظهر هنا -->
-      <img class="logo" src="logo.png" alt="شعار المتجر" onerror="this.style.display='none'">
-
-      <div class="title">تفعيل كود الشراء</div>
-      <div class="subtitle">أدخل كود الشراء الذي وصلك بعد الدفع — سيتم ربطه بهذا الجهاز.</div>
-
-      <input id="codeInput" class="code-input" placeholder="مثال: SNDQ-0000-0000-0000" autocomplete="off" />
-
-      <button class="btn" id="activateBtn">تفعيل ودخول</button>
-      <div class="error" id="err">فضلاً أدخل الكود أولاً.</div>
+    <div class="card">
+      <label for="code">أدخل كود اللعبة</label>
+      <input id="code" inputmode="latin" autocomplete="one-time-code" placeholder="مثال: SNDQ-XXXX-XXXX-XXXX" />
+      <button class="btn" id="go">تفعيل</button>
+      <div class="msg" id="msg"></div>
+      <div class="hint">بعد التفعيل سيتم ربط الكود بهذا الجهاز</div>
     </div>
   </div>
 
-  <!-- ✅ 2) صفحتك الحالية (الصورة + الأزرار) بدون تغيير -->
-  <div class="steps-screen" id="stepsScreen">
-    <div class="page">
-      <div class="stage">
-        <!-- 🔸 هذا اسم الصورة الحالي عندك (عدّله فقط إذا اسمها مختلف) -->
-        <img src="steps.jpg" alt="خطوات تشغيل اللعبة" />
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2O_0So5pCd0PxFdYm8a7R7f0YcLD8el5j-YAveMs93CEJ1CLSnsaUKCty7NjXNt7HCA/exec";
 
-        <!-- Google Play -->
-        <a class="hotspot"
-           href="https://play.google.com/store/apps/details?id=com.microsoft.office.powerpoint"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="تحميل باوربوينت من Google Play"
-           style="left:19.12%; top:39.39%; width:12.75%; height:6.51%;">
-        </a>
+  const codeEl = document.getElementById('code');
+  const msgEl  = document.getElementById('msg');
 
-        <!-- App Store -->
-        <a class="hotspot"
-           href="https://apps.apple.com/app/microsoft-powerpoint/id586449534"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="تحميل باوربوينت من App Store"
-           style="left:37.08%; top:38.41%; width:12.75%; height:7.81%;">
-        </a>
+  // إذا سبق تفعيل الجهاز، ندخله مباشرة صفحة التشغيل
+  if (localStorage.getItem('ppt_game_ok') === '1' && (localStorage.getItem('ppt_game_code')||'').trim()) {
+    location.href = 'start.html?v=' + Date.now();
+  }
 
-        <!-- زر ابدأ اللعبة (رابطك) -->
-        <a class="hotspot"
-           href="https://1drv.ms/p/c/3ceb41d5645d69e6/IQBkzXKZDy5oR6Y3CyeO_Kf4ATatStkELR_7fICeGtqwzIk"
-           aria-label="ابدأ اللعبة"
-           style="left:27.81%; top:80.40%; width:43.45%; height:8.14%;">
-        </a>
+  function showMsg(t, ok=false){
+    msgEl.textContent = t;
+    msgEl.style.display='block';
+    msgEl.className = 'msg' + (ok ? ' ok' : '');
+  }
 
-        <!-- ✅ (تم حذف رابط منصة الأعمال لأنك قلت ما يهم) -->
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const KEY = "sandooq_activation_code";
-
-    const activateScreen = document.getElementById("activateScreen");
-    const stepsScreen    = document.getElementById("stepsScreen");
-    const codeInput      = document.getElementById("codeInput");
-    const activateBtn    = document.getElementById("activateBtn");
-    const err            = document.getElementById("err");
-
-    function showSteps(){
-      activateScreen.style.display = "none";
-      stepsScreen.style.display = "flex";
+  function getDeviceKey(){
+    let k = localStorage.getItem('ppt_deviceKey');
+    if(!k){
+      k = 'dev_' + Math.random().toString(16).slice(2) + '_' + Date.now().toString(16);
+      localStorage.setItem('ppt_deviceKey', k);
     }
+    return k;
+  }
 
-    function showActivate(){
-      activateScreen.style.display = "flex";
-      stepsScreen.style.display = "none";
-      setTimeout(() => codeInput.focus(), 150);
-    }
+  function verifyCode(code){
+    msgEl.style.display='none';
 
-    // إذا الكود محفوظ بالجهاز: ادخل مباشرة على صفحة الصورة
-    const saved = localStorage.getItem(KEY);
-    if(saved && saved.trim().length > 0){
-      showSteps();
-    }else{
-      showActivate();
-    }
+    const deviceKey = getDeviceKey();
+    const cbName = '__cb_' + Math.random().toString(36).slice(2);
 
-    function activateNow(){
-      const v = (codeInput.value || "").trim();
-      if(!v){
-        err.style.display = "block";
-        return;
+    window[cbName] = (res)=>{
+      try{
+        delete window[cbName];
+        script.remove();
+
+        if(res && res.ok){
+          localStorage.setItem('ppt_game_ok', '1');
+          localStorage.setItem('ppt_game_code', code);
+          showMsg(res.msg || 'تم التفعيل', true);
+          setTimeout(()=> location.href = 'start.html?v=' + Date.now(), 350);
+        }else{
+          localStorage.removeItem('ppt_game_ok');
+          localStorage.removeItem('ppt_game_code');
+          showMsg((res && res.msg) ? res.msg : 'فشل التفعيل');
+        }
+      }catch(e){
+        showMsg('حدث خطأ غير متوقع');
       }
-      err.style.display = "none";
-      localStorage.setItem(KEY, v);
-      showSteps();
+    };
+
+    const url = SCRIPT_URL
+      + '?code=' + encodeURIComponent(code)
+      + '&deviceKey=' + encodeURIComponent(deviceKey)
+      + '&callback=' + encodeURIComponent(cbName);
+
+    const script = document.createElement('script');
+    script.src = url;
+    script.onerror = ()=> showMsg('تعذر الاتصال بخدمة التفعيل');
+    document.body.appendChild(script);
+  }
+
+  function activate(){
+    const code = (codeEl.value || '').trim();
+    if(!code || code.length < 4){
+      showMsg('اكتب كود صحيح');
+      return;
     }
+    verifyCode(code);
+  }
 
-    activateBtn.addEventListener("click", activateNow);
-    codeInput.addEventListener("keydown", (e) => {
-      if(e.key === "Enter") activateNow();
-    });
-  </script>
-
+  document.getElementById('go').addEventListener('click', activate);
+  codeEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter') activate(); });
+</script>
 </body>
 </html>
