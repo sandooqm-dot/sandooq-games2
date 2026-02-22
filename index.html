@@ -38,79 +38,27 @@
   </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2O_0So5pCd0PxFdYm8a7R7f0YcLD8el5j-YAveMs93CEJ1CLSnsaUKCty7NjXNt7HCA/exec";
-
-  const codeEl = document.getElementById('code');
-  const msgEl  = document.getElementById('msg');
-
-  // إذا سبق تفعيل الجهاز، ندخله مباشرة صفحة التشغيل
-  if (localStorage.getItem('ppt_game_ok') === '1' && (localStorage.getItem('ppt_game_code')||'').trim()) {
-    location.href = 'start.html?v=' + Date.now();
-  }
-
-  function showMsg(t, ok=false){
-    msgEl.textContent = t;
-    msgEl.style.display='block';
-    msgEl.className = 'msg' + (ok ? ' ok' : '');
-  }
-
-  function getDeviceKey(){
-    let k = localStorage.getItem('ppt_deviceKey');
-    if(!k){
-      k = 'dev_' + Math.random().toString(16).slice(2) + '_' + Date.now().toString(16);
-      localStorage.setItem('ppt_deviceKey', k);
-    }
-    return k;
-  }
-
-  function verifyCode(code){
-    msgEl.style.display='none';
-
-    const deviceKey = getDeviceKey();
-    const cbName = '__cb_' + Math.random().toString(36).slice(2);
-
-    window[cbName] = (res)=>{
-      try{
-        delete window[cbName];
-        script.remove();
-
-        if(res && res.ok){
-          localStorage.setItem('ppt_game_ok', '1');
-          localStorage.setItem('ppt_game_code', code);
-          showMsg(res.msg || 'تم التفعيل', true);
-          setTimeout(()=> location.href = 'start.html?v=' + Date.now(), 350);
-        }else{
-          localStorage.removeItem('ppt_game_ok');
-          localStorage.removeItem('ppt_game_code');
-          showMsg((res && res.msg) ? res.msg : 'فشل التفعيل');
-        }
-      }catch(e){
-        showMsg('حدث خطأ غير متوقع');
+  // ✅ تم إلغاء صفحة تفعيل الكود نهائياً
+  // التحويل مباشرة إلى start.html
+  (function(){
+    try{
+      // قيم توافقية (لو start.html كان يتوقعها)
+      localStorage.setItem('ppt_game_ok', '1');
+      if(!(localStorage.getItem('ppt_game_code')||'').trim()){
+        localStorage.setItem('ppt_game_code', 'NO_CODE');
       }
-    };
+      if(!localStorage.getItem('ppt_deviceKey')){
+        localStorage.setItem('ppt_deviceKey', 'dev_' + Math.random().toString(16).slice(2) + '_' + Date.now().toString(16));
+      }
+    }catch(e){}
 
-    const url = SCRIPT_URL
-      + '?code=' + encodeURIComponent(code)
-      + '&deviceKey=' + encodeURIComponent(deviceKey)
-      + '&callback=' + encodeURIComponent(cbName);
-
-    const script = document.createElement('script');
-    script.src = url;
-    script.onerror = ()=> showMsg('تعذر الاتصال بخدمة التفعيل');
-    document.body.appendChild(script);
-  }
-
-  function activate(){
-    const code = (codeEl.value || '').trim();
-    if(!code || code.length < 4){
-      showMsg('اكتب كود صحيح');
-      return;
+    const target = 'start.html?v=' + Date.now();
+    if (typeof requestAnimationFrame === "function") {
+      requestAnimationFrame(() => location.replace(target));
+    } else {
+      location.replace(target);
     }
-    verifyCode(code);
-  }
-
-  document.getElementById('go').addEventListener('click', activate);
-  codeEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter') activate(); });
+  })();
 </script>
 </body>
 </html>
