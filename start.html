@@ -49,46 +49,46 @@
 
     .homeButton {
       position: fixed;
-      left: 6.5vw;
-      bottom: calc(7.2vh + env(safe-area-inset-bottom));
+      left: 10px;
+      bottom: calc(4.2vh + env(safe-area-inset-bottom));
       z-index: 12;
-      min-width: 132px;
-      min-height: 48px;
-      padding: 10px 20px;
+      min-width: 78px;
+      min-height: 30px;
+      padding: 5px 10px;
       border-radius: 999px;
-      border: 3px solid rgba(255,255,255,.95);
+      border: 2px solid rgba(255,255,255,.95);
       background: linear-gradient(180deg, #ff5f56 0%, #d92d27 100%);
       color: #fff;
-      font: 900 20px system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      font: 900 13px system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 7px 0 rgba(0,0,0,.20), 0 14px 24px rgba(0,0,0,.18);
+      box-shadow: 0 3px 0 rgba(0,0,0,.22), 0 7px 12px rgba(0,0,0,.14);
       -webkit-tap-highlight-color: transparent;
-      text-shadow: 0 2px 0 rgba(0,0,0,.16);
+      text-shadow: 0 1px 0 rgba(0,0,0,.16);
     }
 
     .homeButton:active {
-      transform: translateY(3px);
-      box-shadow: 0 4px 0 rgba(0,0,0,.20), 0 10px 18px rgba(0,0,0,.16);
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(0,0,0,.22), 0 5px 9px rgba(0,0,0,.14);
     }
 
     @media (max-width: 420px) {
       .homeButton {
-        left: 6.2vw;
-        bottom: calc(7vh + env(safe-area-inset-bottom));
-        min-width: 118px;
-        min-height: 44px;
-        padding: 9px 17px;
-        font-size: 18px;
+        left: 8px;
+        bottom: calc(4vh + env(safe-area-inset-bottom));
+        min-width: 74px;
+        min-height: 28px;
+        padding: 5px 9px;
+        font-size: 12px;
       }
     }
 
     @media (min-width: 900px) {
       .homeButton {
-        left: calc(50vw - min(50vw, 360px));
-        bottom: calc(6vh + env(safe-area-inset-bottom));
+        left: calc(50vw - min(50vw, 360px) + 10px);
+        bottom: calc(4vh + env(safe-area-inset-bottom));
       }
     }
   </style>
@@ -160,6 +160,6 @@
     window.addEventListener("resize", setHotspots);
     setHotspots();
   </script>
-  <!-- VERSION: sandooq-start — red-home-button-v1 -->
+  <!-- VERSION: sandooq-start — small-corner-home-button-v2 -->
 </body>
 </html>
