@@ -46,6 +46,51 @@
       outline: 2px dashed #ff0;
       background: #ff0;
     }
+
+    .homeButton {
+      position: fixed;
+      left: 6.5vw;
+      bottom: calc(7.2vh + env(safe-area-inset-bottom));
+      z-index: 12;
+      min-width: 132px;
+      min-height: 48px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 3px solid rgba(255,255,255,.95);
+      background: linear-gradient(180deg, #ff5f56 0%, #d92d27 100%);
+      color: #fff;
+      font: 900 20px system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 7px 0 rgba(0,0,0,.20), 0 14px 24px rgba(0,0,0,.18);
+      -webkit-tap-highlight-color: transparent;
+      text-shadow: 0 2px 0 rgba(0,0,0,.16);
+    }
+
+    .homeButton:active {
+      transform: translateY(3px);
+      box-shadow: 0 4px 0 rgba(0,0,0,.20), 0 10px 18px rgba(0,0,0,.16);
+    }
+
+    @media (max-width: 420px) {
+      .homeButton {
+        left: 6.2vw;
+        bottom: calc(7vh + env(safe-area-inset-bottom));
+        min-width: 118px;
+        min-height: 44px;
+        padding: 9px 17px;
+        font-size: 18px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .homeButton {
+        left: calc(50vw - min(50vw, 360px));
+        bottom: calc(6vh + env(safe-area-inset-bottom));
+      }
+    }
   </style>
 </head>
 <body>
@@ -69,6 +114,11 @@
   <a class="hotspot" id="hsSBC"
      href="https://eauthenticate.saudibusiness.gov.sa/certificate-details"
      target="_blank" rel="noopener"></a>
+
+  <!-- ✅ زر الرجوع إلى منصة الألعاب -->
+  <a class="homeButton"
+     href="https://sandooq-games.com/index.html?focus=sandooq#games"
+     aria-label="العودة إلى الصفحة الرئيسية">الرئيسية</a>
 
   <script>
     // وضع Debug عند ?debug=1
@@ -110,5 +160,6 @@
     window.addEventListener("resize", setHotspots);
     setHotspots();
   </script>
+  <!-- VERSION: sandooq-start — red-home-button-v1 -->
 </body>
 </html>
